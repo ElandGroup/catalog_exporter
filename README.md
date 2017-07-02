@@ -46,4 +46,4 @@ Visit http://127.0.0.1:3000/
 - logger : [logrus](https://github.com/sirupsen/logrus)
 - configuration tool: [viper](https://github.com/spf13/viper)
 - validator: [govalidator](github.com/asaskevich/govalidator)
-- utils: https://github.com/elandgroup/goutils
+- utils: https://github.com/pangpanglabs/goutils

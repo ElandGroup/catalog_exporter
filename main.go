@@ -9,7 +9,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	_ "github.com/mattn/go-sqlite3"
-	configutil "github.com/elandgroup/goutils/config"
+	configutil "github.com/pangpanglabs/goutils/config"
 
 	"github.com/elandgroup/catalog_exporter/config"
 	"github.com/elandgroup/catalog_exporter/controllers"

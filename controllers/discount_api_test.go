@@ -10,7 +10,7 @@ import (
 	"github.com/labstack/echo"
 
 	"github.com/elandgroup/catalog_exporter/models"
-	"github.com/elandgroup/goutils/test"
+	"github.com/pangpanglabs/goutils/test"
 )
 
 func Test_DiscountApiController_Create(t *testing.T) {

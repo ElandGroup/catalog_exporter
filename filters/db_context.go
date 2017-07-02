@@ -15,7 +15,7 @@ import (
 	"github.com/elandgroup/catalog_exporter/config"
 	"github.com/elandgroup/catalog_exporter/factory"
 	"github.com/elandgroup/catalog_exporter/models"
-	"github.com/elandgroup/goutils/kafka"
+	"github.com/pangpanglabs/goutils/kafka"
 )
 
 func DbContext(c config.Database) echo.MiddlewareFunc {

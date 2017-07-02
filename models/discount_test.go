@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/elandgroup/goutils/test"
+	"github.com/pangpanglabs/goutils/test"
 
 	"github.com/elandgroup/catalog_exporter/models"
 )

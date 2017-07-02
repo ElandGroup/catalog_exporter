@@ -6,7 +6,7 @@ RUN go get github.com/labstack/echo \
  && go get github.com/asaskevich/govalidator \
  && go get github.com/dgrijalva/jwt-go \
  && go get github.com/sirupsen/logrus \
- && go get github.com/elandgroup/goutils/... \
+ && go get github.com/pangpanglabs/goutils/... \
  && go get github.com/go-sql-driver/mysql \
  && go get github.com/mattn/go-sqlite3 \
  && go get github.com/opentracing/opentracing-go \
