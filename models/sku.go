@@ -9,26 +9,24 @@ import (
 	"catalog_exporter/factory"
 )
 
-type Content struct {
-	Id        int64   `json:"id"`
-	Code      string  `json:"code"`
-	Name      string  `json:"name"`
-	Desc      string  `json:"desc"`
-	ListPrice float64 `json:"list_price"`
+type Sku struct {
+	Id    int64  `json:"id"`
+	SkuId int64  `json:"sku_id"`
+	Code  string `json:"code"`
+	Name  string `json:"name"`
 
 	Images    string    `json:"images"`
-	Rank      string    `json:"rank"`
-	BrandId   int64     `json:"brand_id"`
+	Options   string    `json:"options"`
 	Enable    bool      `json:"enable"`
 	CreatedAt time.Time `json:"createdAt" xorm:"created"`
 	UpdatedAt time.Time `json:"updatedAt" xorm:"updated"`
 }
 
-func (d *Content) Create(ctx context.Context) (int64, error) {
+func (d *Sku) Create(ctx context.Context) (int64, error) {
 	return factory.DB(ctx).Insert(d)
 }
-func (Content) GetById(ctx context.Context, id int64) (*Content, error) {
-	var v Content
+func (Sku) GetById(ctx context.Context, id int64) (*Sku, error) {
+	var v Sku
 	if has, err := factory.DB(ctx).ID(id).Get(&v); err != nil {
 		return nil, err
 	} else if !has {
@@ -36,7 +34,7 @@ func (Content) GetById(ctx context.Context, id int64) (*Content, error) {
 	}
 	return &v, nil
 }
-func (Content) GetAll(ctx context.Context, sortby, order []string, offset, limit int) (totalCount int64, items []Content, err error) {
+func (Sku) GetAll(ctx context.Context, sortby, order []string, offset, limit int) (totalCount int64, items []Sku, err error) {
 	queryBuilder := func() *xorm.Session {
 		q := factory.DB(ctx)
 		if err := setSortOrder(q, sortby, order); err != nil {
@@ -47,7 +45,7 @@ func (Content) GetAll(ctx context.Context, sortby, order []string, offset, limit
 
 	errc := make(chan error)
 	go func() {
-		v, err := queryBuilder().Count(&Content{})
+		v, err := queryBuilder().Count(&Sku{})
 		if err != nil {
 			errc <- err
 			return
@@ -73,12 +71,12 @@ func (Content) GetAll(ctx context.Context, sortby, order []string, offset, limit
 	}
 	return
 }
-func (d *Content) Update(ctx context.Context) (err error) {
+func (d *Sku) Update(ctx context.Context) (err error) {
 	_, err = factory.DB(ctx).ID(d.Id).Update(d)
 	return
 }
 
-func (Content) Delete(ctx context.Context, id int64) (err error) {
-	_, err = factory.DB(ctx).ID(id).Delete(&Content{})
+func (Sku) Delete(ctx context.Context, id int64) (err error) {
+	_, err = factory.DB(ctx).ID(id).Delete(&Sku{})
 	return
 }

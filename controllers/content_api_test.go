@@ -9,7 +9,8 @@ import (
 
 	"github.com/labstack/echo"
 
-	"github.com/elandgroup/catalog_exporter/models"
+	"catalog_exporter/models"
+
 	"github.com/pangpanglabs/goutils/test"
 )
 
@@ -22,11 +23,11 @@ func Test_ContentApiController_Create(t *testing.T) {
 
 	var v struct {
 		Result  models.Content `json:"result"`
-		Success bool            `json:"success"`
+		Success bool           `json:"success"`
 	}
 	test.Ok(t, json.Unmarshal(rec.Body.Bytes(), &v))
 	test.Equals(t, v.Result.Name, "content name")
-	test.Equals(t, v.Result.StartAt.Format("2006-01-02"), "2017-01-01")
+	test.Equals(t, v.Result.UpdatedAt.Format("2006-01-02"), "2017-01-01")
 }
 
 func Test_ContentApiController_Create2(t *testing.T) {
@@ -38,11 +39,11 @@ func Test_ContentApiController_Create2(t *testing.T) {
 
 	var v struct {
 		Result  models.Content `json:"result"`
-		Success bool            `json:"success"`
+		Success bool           `json:"success"`
 	}
 	test.Ok(t, json.Unmarshal(rec.Body.Bytes(), &v))
 	test.Equals(t, v.Result.Name, "content name#2")
-	test.Equals(t, v.Result.StartAt.Format("2006-01-02"), "2017-02-01")
+	test.Equals(t, v.Result.UpdatedAt.Format("2006-01-02"), "2017-02-01")
 }
 
 func Test_ContentApiController_Update(t *testing.T) {
@@ -58,11 +59,11 @@ func Test_ContentApiController_Update(t *testing.T) {
 
 	var v struct {
 		Result  models.Content `json:"result"`
-		Success bool            `json:"success"`
+		Success bool           `json:"success"`
 	}
 	test.Ok(t, json.Unmarshal(rec.Body.Bytes(), &v))
 	test.Equals(t, v.Result.Name, "content name2")
-	test.Equals(t, v.Result.StartAt.Format("2006-01-02"), "2017-01-02")
+	test.Equals(t, v.Result.UpdatedAt.Format("2006-01-02"), "2017-01-02")
 }
 
 func Test_ContentApiController_GetOne(t *testing.T) {
@@ -77,11 +78,11 @@ func Test_ContentApiController_GetOne(t *testing.T) {
 
 	var v struct {
 		Result  models.Content `json:"result"`
-		Success bool            `json:"success"`
+		Success bool           `json:"success"`
 	}
 	test.Ok(t, json.Unmarshal(rec.Body.Bytes(), &v))
 	test.Equals(t, v.Result.Name, "content name2")
-	test.Equals(t, v.Result.StartAt.Format("2006-01-02"), "2017-01-02")
+	test.Equals(t, v.Result.UpdatedAt.Format("2006-01-02"), "2017-01-02")
 }
 
 func Test_ContentApiController_GetAll_SortByAsc(t *testing.T) {
@@ -100,7 +101,7 @@ func Test_ContentApiController_GetAll_SortByAsc(t *testing.T) {
 	}
 	test.Ok(t, json.Unmarshal(rec.Body.Bytes(), &v))
 	test.Equals(t, v.Result.TotalCount, 2)
-	test.Equals(t, v.Result.Items[0].ContentAmount, float64(10))
+	test.Equals(t, v.Result.Items[0].ListPrice, float64(10))
 }
 
 func Test_ContentApiController_GetAll_SortByDesc(t *testing.T) {
@@ -120,5 +121,5 @@ func Test_ContentApiController_GetAll_SortByDesc(t *testing.T) {
 	}
 	test.Ok(t, json.Unmarshal(rec.Body.Bytes(), &v))
 	test.Equals(t, v.Result.TotalCount, 2)
-	test.Equals(t, v.Result.Items[0].ContentAmount, float64(20))
+	test.Equals(t, v.Result.Items[0].ListPrice, float64(20))
 }

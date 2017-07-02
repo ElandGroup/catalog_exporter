@@ -9,7 +9,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/sirupsen/logrus"
 
-	"github.com/elandgroup/catalog_exporter/factory"
+	"catalog_exporter/factory"
 )
 
 func Logger(env string) echo.MiddlewareFunc {

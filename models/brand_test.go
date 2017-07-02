@@ -10,10 +10,10 @@ import (
 	"catalog_exporter/models"
 )
 
-func TestContentCreate(t *testing.T) {
-	d1 := models.Content{
+func TestBrandCreate(t *testing.T) {
+	d1 := models.Brand{
 		Name: "name1",
-		Desc: "desc1",
+		Code: "code1",
 	}
 	affected, err := d1.Create(ctx)
 	test.Ok(t, err)
@@ -22,9 +22,9 @@ func TestContentCreate(t *testing.T) {
 	test.Equals(t, d1.CreatedAt.Format("2006-01-02"), time.Now().Format("2006-01-02"))
 	test.Equals(t, d1.UpdatedAt.Format("2006-01-02"), time.Now().Format("2006-01-02"))
 
-	d2 := models.Content{
+	d2 := models.Brand{
 		Name: "name2",
-		Desc: "desc2",
+		Code: "code2",
 	}
 	affected, err = d2.Create(ctx)
 	test.Ok(t, err)
@@ -34,8 +34,8 @@ func TestContentCreate(t *testing.T) {
 	test.Equals(t, d1.UpdatedAt.Format("2006-01-02"), time.Now().Format("2006-01-02"))
 }
 
-func TestContentGetAndUpdate(t *testing.T) {
-	d, err := models.Content{}.GetById(ctx, 1)
+func TestBrandGetAndUpdate(t *testing.T) {
+	d, err := models.Brand{}.GetById(ctx, 1)
 	test.Ok(t, err)
 	test.Equals(t, d.Id, int64(1))
 	test.Equals(t, d.Name, "name1")
@@ -49,8 +49,8 @@ func TestContentGetAndUpdate(t *testing.T) {
 
 }
 
-func TestContentGetAll(t *testing.T) {
-	totalCount, items, err := models.Content{}.GetAll(ctx, []string{"name"}, []string{"desc"}, 0, 10)
+func TestBrandGetAll(t *testing.T) {
+	totalCount, items, err := models.Brand{}.GetAll(ctx, []string{"name"}, []string{"code"}, 0, 10)
 	test.Ok(t, err)
 	test.Equals(t, totalCount, int64(2))
 	test.Equals(t, items[0].Id, int64(2))

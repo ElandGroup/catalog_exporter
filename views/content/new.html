@@ -1,40 +1,47 @@
 {{define "content/new"}}
 {{template "header"}}
 <form class="form-horizontal" action="/contents" method="post">
+ <div class="form-group">
+    <label for="code" class="col-sm-2 control-label">Code</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="code" name="Code" placeholder="Code">
+    </div>
+  </div>
   <div class="form-group">
     <label for="name" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="name" name="Name" placeholder="Name">
+      <input type="text" class="form-control" id="name" name="Name"  placeholder="Name">
     </div>
   </div>
   <div class="form-group">
     <label for="desc" class="col-sm-2 control-label">Desc</label>
     <div class="col-sm-10">
-      <textarea class="form-control" id="desc" name="Desc" placeholder="Desc" rows="3"></textarea>
+      <textarea class="form-control" id="desc" name="NamDesce" placeholder="Desc"></textarea>
     </div>
   </div>
   <div class="form-group">
-    <label for="startAt" class="col-sm-2 control-label">StartAt</label>
+    <label for="listPrice" class="col-sm-2 control-label">ListPrice</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" id="startAt" name="StartAt" placeholder="StartAt">
+      <input type="number" class="form-control" id="listPrice" name="ListPrice"  placeholder="ListPrice">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="images" class="col-sm-2 control-label">Images</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="images" name="Images"  placeholder="Images">
     </div>
   </div>
   <div class="form-group">
-    <label for="endAt" class="col-sm-2 control-label">EndAt</label>
+    <label for="rank" class="col-sm-2 control-label">Rank</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" id="endAt" name="EndAt" placeholder="EndAt">
+      <input type="text" class="form-control" id="rank" name="Rank" placeholder="Rank">
     </div>
   </div>
   <div class="form-group">
-    <label for="actionType" class="col-sm-2 control-label">ActionType</label>
+    <label for="brandId" class="col-sm-2 control-label">BrandId</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="actionType" name="ActionType" placeholder="ActionType">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="contentAmount" class="col-sm-2 control-label">ContentAmount</label>
-    <div class="col-sm-10">
-      <input type="number" class="form-control" id="contentAmount" name="ContentAmount" placeholder="ContentAmount">
+      <input type="text" class="form-control" id="brandId" name="BrandId"  placeholder="BrandId">
     </div>
   </div>
   <div class="form-group">

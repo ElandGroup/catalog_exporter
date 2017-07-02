@@ -12,10 +12,10 @@ import (
 	"catalog_exporter/models"
 )
 
-type ContentController struct {
+type BrandController struct {
 }
 
-func (c ContentController) Init(g *echo.Group) {
+func (c BrandController) Init(g *echo.Group) {
 	g.GET("", c.GetAll)
 	g.GET("/new", c.New)
 	g.POST("", c.Create)
@@ -24,7 +24,7 @@ func (c ContentController) Init(g *echo.Group) {
 	g.POST("/:id", c.Update)
 }
 
-func (ContentController) GetAll(c echo.Context) error {
+func (BrandController) GetAll(c echo.Context) error {
 	var v SearchInput
 	if err := c.Bind(&v); err != nil {
 		setFlashMessage(c, map[string]string{"warning": err.Error()})
@@ -40,97 +40,97 @@ func (ContentController) GetAll(c echo.Context) error {
 		"skipCount":      v.SkipCount,
 	}).Info("SearchInput")
 
-	totalCount, items, err := models.Content{}.GetAll(c.Request().Context(), v.Sortby, v.Order, v.SkipCount, v.MaxResultCount)
+	totalCount, items, err := models.Brand{}.GetAll(c.Request().Context(), v.Sortby, v.Order, v.SkipCount, v.MaxResultCount)
 	if err != nil {
 		return err
 	}
-	return c.Render(http.StatusOK, "content/index", map[string]interface{}{
+	return c.Render(http.StatusOK, "brand/index", map[string]interface{}{
 		"TotalCount":     totalCount,
-		"Contents":       items,
+		"Brands":         items,
 		"MaxResultCount": v.MaxResultCount,
 	})
 }
-func (ContentController) New(c echo.Context) error {
-	return c.Render(http.StatusOK, "content/new", map[string]interface{}{
+func (BrandController) New(c echo.Context) error {
+	return c.Render(http.StatusOK, "brand/new", map[string]interface{}{
 		FlashName: getFlashMessage(c),
-		"Form":    &models.Content{},
+		"Form":    &models.Brand{},
 	})
 }
-func (ContentController) Create(c echo.Context) error {
-	var v ContentInput
+func (BrandController) Create(c echo.Context) error {
+	var v BrandInput
 	if err := c.Bind(&v); err != nil {
 		setFlashMessage(c, map[string]string{"error": err.Error()})
-		return c.Redirect(http.StatusFound, "/content/new")
+		return c.Redirect(http.StatusFound, "/brand/new")
 	}
 	if err := c.Validate(&v); err != nil {
 		setFlashMessage(c, map[string]string{"error": err.Error()})
-		return c.Redirect(http.StatusFound, "/contents/new")
+		return c.Redirect(http.StatusFound, "/brands/new")
 	}
-	content, err := v.ToModel()
+	brand, err := v.ToModel()
 	if err != nil {
 		setFlashMessage(c, map[string]string{"error": err.Error()})
-		return c.Redirect(http.StatusFound, "/contents/new")
+		return c.Redirect(http.StatusFound, "/brands/new")
 	}
-	if _, err := content.Create(c.Request().Context()); err != nil {
+	if _, err := brand.Create(c.Request().Context()); err != nil {
 		return err
 	}
-	return c.Redirect(http.StatusFound, fmt.Sprintf("/contents/%d", content.Id))
+	return c.Redirect(http.StatusFound, fmt.Sprintf("/brands/%d", brand.Id))
 }
-func (ContentController) GetOne(c echo.Context) error {
+func (BrandController) GetOne(c echo.Context) error {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		return c.Render(http.StatusNotFound, "404", nil)
 	}
-	v, err := models.Content{}.GetById(c.Request().Context(), id)
+	v, err := models.Brand{}.GetById(c.Request().Context(), id)
 	if err != nil {
 		return err
 	}
 	if v == nil {
 		return c.Render(http.StatusNotFound, "404", nil)
 	}
-	return c.Render(http.StatusOK, "content/show", map[string]interface{}{"Content": v})
+	return c.Render(http.StatusOK, "brand/show", map[string]interface{}{"Brand": v})
 }
 
-func (ContentController) Edit(c echo.Context) error {
+func (BrandController) Edit(c echo.Context) error {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		return c.Render(http.StatusNotFound, "404", nil)
 	}
-	v, err := models.Content{}.GetById(c.Request().Context(), id)
+	v, err := models.Brand{}.GetById(c.Request().Context(), id)
 	if err != nil {
 		return err
 	}
 	if v == nil {
 		return c.Render(http.StatusNotFound, "404", nil)
 	}
-	return c.Render(http.StatusOK, "content/edit", map[string]interface{}{
+	return c.Render(http.StatusOK, "brand/edit", map[string]interface{}{
 		FlashName: getFlashMessage(c),
 		"Form":    v,
 	})
 }
-func (ContentController) Update(c echo.Context) error {
-	var v ContentInput
+func (BrandController) Update(c echo.Context) error {
+	var v BrandInput
 	if err := c.Bind(&v); err != nil {
 		setFlashMessage(c, map[string]string{"error": err.Error()})
-		return c.Redirect(http.StatusFound, "/content/new")
+		return c.Redirect(http.StatusFound, "/brand/new")
 	}
 	if err := c.Validate(&v); err != nil {
 		setFlashMessage(c, map[string]string{"error": err.Error()})
-		return c.Redirect(http.StatusFound, "/contents/new")
+		return c.Redirect(http.StatusFound, "/brands/new")
 	}
-	content, err := v.ToModel()
+	brand, err := v.ToModel()
 	if err != nil {
 		setFlashMessage(c, map[string]string{"error": err.Error()})
-		return c.Redirect(http.StatusFound, "/contents/new")
+		return c.Redirect(http.StatusFound, "/brands/new")
 	}
 
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		return c.Render(http.StatusNotFound, "404", nil)
 	}
-	content.Id = id
-	if err := content.Update(c.Request().Context()); err != nil {
+	brand.Id = id
+	if err := brand.Update(c.Request().Context()); err != nil {
 		return err
 	}
-	return c.Redirect(http.StatusFound, fmt.Sprintf("/contents/%d", content.Id))
+	return c.Redirect(http.StatusFound, fmt.Sprintf("/brands/%d", brand.Id))
 }

@@ -12,16 +12,16 @@ import (
 	"catalog_exporter/models"
 )
 
-type ContentApiController struct {
+type BrandApiController struct {
 }
 
-func (c ContentApiController) Init(g *echo.Group) {
+func (c BrandApiController) Init(g *echo.Group) {
 	g.GET("", c.GetAll)
 	g.POST("", c.Create)
 	g.GET("/:id", c.GetOne)
 	g.PUT("/:id", c.Update)
 }
-func (ContentApiController) GetAll(c echo.Context) error {
+func (BrandApiController) GetAll(c echo.Context) error {
 	tracer := factory.Tracer(c.Request().Context())
 	tracer.LogEvent("Start GetAll")
 
@@ -45,7 +45,7 @@ func (ContentApiController) GetAll(c echo.Context) error {
 		"skipCount":      v.SkipCount,
 	}).Info("SearchInput")
 
-	totalCount, items, err := models.Content{}.GetAll(c.Request().Context(), v.Sortby, v.Order, v.SkipCount, v.MaxResultCount)
+	totalCount, items, err := models.Brand{}.GetAll(c.Request().Context(), v.Sortby, v.Order, v.SkipCount, v.MaxResultCount)
 	if err != nil {
 		return ReturnApiFail(c, http.StatusInternalServerError, ApiErrorDB, err)
 	}
@@ -59,30 +59,30 @@ func (ContentApiController) GetAll(c echo.Context) error {
 	})
 }
 
-func (ContentApiController) Create(c echo.Context) error {
-	var v ContentInput
+func (BrandApiController) Create(c echo.Context) error {
+	var v BrandInput
 	if err := c.Bind(&v); err != nil {
 		return ReturnApiFail(c, http.StatusBadRequest, ApiErrorParameter, err)
 	}
 	if err := c.Validate(&v); err != nil {
 		return ReturnApiFail(c, http.StatusBadRequest, ApiErrorParameter, err)
 	}
-	content, err := v.ToModel()
+	brand, err := v.ToModel()
 	if err != nil {
 		return ReturnApiFail(c, http.StatusBadRequest, ApiErrorParameter, err)
 	}
-	if _, err := content.Create(c.Request().Context()); err != nil {
+	if _, err := brand.Create(c.Request().Context()); err != nil {
 		return ReturnApiFail(c, http.StatusInternalServerError, ApiErrorDB, err)
 	}
-	return ReturnApiSucc(c, http.StatusOK, content)
+	return ReturnApiSucc(c, http.StatusOK, brand)
 }
 
-func (ContentApiController) GetOne(c echo.Context) error {
+func (BrandApiController) GetOne(c echo.Context) error {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		return ReturnApiFail(c, http.StatusBadRequest, ApiErrorParameter, err)
 	}
-	v, err := models.Content{}.GetById(c.Request().Context(), id)
+	v, err := models.Brand{}.GetById(c.Request().Context(), id)
 	if err != nil {
 		return ReturnApiFail(c, http.StatusInternalServerError, ApiErrorDB, err)
 	}
@@ -92,15 +92,15 @@ func (ContentApiController) GetOne(c echo.Context) error {
 	return ReturnApiSucc(c, http.StatusOK, v)
 }
 
-func (ContentApiController) Update(c echo.Context) error {
-	var v ContentInput
+func (BrandApiController) Update(c echo.Context) error {
+	var v BrandInput
 	if err := c.Bind(&v); err != nil {
 		return ReturnApiFail(c, http.StatusBadRequest, ApiErrorParameter, err)
 	}
 	if err := c.Validate(&v); err != nil {
 		return ReturnApiFail(c, http.StatusBadRequest, ApiErrorParameter, err)
 	}
-	content, err := v.ToModel()
+	brand, err := v.ToModel()
 	if err != nil {
 		return ReturnApiFail(c, http.StatusBadRequest, ApiErrorParameter, err)
 	}
@@ -109,9 +109,9 @@ func (ContentApiController) Update(c echo.Context) error {
 	if err != nil {
 		return ReturnApiFail(c, http.StatusBadRequest, ApiErrorParameter, err)
 	}
-	content.Id = id
-	if err := content.Update(c.Request().Context()); err != nil {
+	brand.Id = id
+	if err := brand.Update(c.Request().Context()); err != nil {
 		return ReturnApiFail(c, http.StatusInternalServerError, ApiErrorDB, err)
 	}
-	return ReturnApiSucc(c, http.StatusOK, content)
+	return ReturnApiSucc(c, http.StatusOK, brand)
 }

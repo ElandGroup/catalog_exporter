@@ -1,0 +1,28 @@
+{{define "content/edit"}} {{template "header"}}
+<form class="form-horizontal" action="/contents/{{.Form.Id}}" method="post">
+  <input type="hidden" name="_method" value="put" />
+  <div class="form-group">
+    <label for="code" class="col-sm-2 control-label">Code</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="code" name="Code" value="{{.Form.Code}}" placeholder="Code">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="name" name="Name" value="{{.Form.Name}}" placeholder="Name">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary">Edit</button>
+    </div>
+  </div>
+</form>
+<p>
+  <a href="/contents/{{.Form.Id}}">Show</a> | <a href="/contents">Back</a>
+</p>
+{{with .flash.error}}
+<div class="alert alert-danger" role="alert">{{.}}</div>{{end}} {{with .flash.warning}}
+<div class="alert alert-warning" role="alert">{{.}}</div>{{end}} {{with .flash.notice}}
+<div class="alert alert-info" role="alert">{{.}}</div>{{end}} {{template "footer"}} {{end}}
