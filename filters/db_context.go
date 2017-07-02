@@ -12,9 +12,9 @@ import (
 	"github.com/go-xorm/xorm"
 	"github.com/labstack/echo"
 
-	"catalog_exporter/config"
-	"catalog_exporter/factory"
-	"catalog_exporter/models"
+	"github.com/elandgroup/catalog_exporter/config"
+	"github.com/elandgroup/catalog_exporter/factory"
+	"github.com/elandgroup/catalog_exporter/models"
 	"github.com/pangpanglabs/goutils/kafka"
 )
 

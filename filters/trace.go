@@ -5,7 +5,7 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
 	zipkin "github.com/openzipkin/zipkin-go-opentracing"
-	"catalog_exporter/config"
+	"github.com/elandgroup/catalog_exporter/config"
 	"github.com/sirupsen/logrus"
 )
 

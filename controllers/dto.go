@@ -1,6 +1,6 @@
 package controllers
 
-import "catalog_exporter/models"
+import "github.com/elandgroup/catalog_exporter/models"
 
 const (
 	DefaultMaxResultCount = 30

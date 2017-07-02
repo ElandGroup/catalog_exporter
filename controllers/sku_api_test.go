@@ -9,7 +9,7 @@ import (
 
 	"github.com/labstack/echo"
 
-	"catalog_exporter/models"
+	"github.com/elandgroup/catalog_exporter/models"
 
 	"github.com/pangpanglabs/goutils/test"
 )

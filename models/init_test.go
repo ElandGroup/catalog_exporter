@@ -7,8 +7,8 @@ import (
 	"github.com/go-xorm/xorm"
 	_ "github.com/mattn/go-sqlite3"
 
-	"catalog_exporter/factory"
-	"catalog_exporter/models"
+	"github.com/elandgroup/catalog_exporter/factory"
+	"github.com/elandgroup/catalog_exporter/models"
 )
 
 var ctx context.Context

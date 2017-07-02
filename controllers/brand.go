@@ -8,8 +8,8 @@ import (
 	"github.com/labstack/echo"
 	"github.com/sirupsen/logrus"
 
-	"catalog_exporter/factory"
-	"catalog_exporter/models"
+	"github.com/elandgroup/catalog_exporter/factory"
+	"github.com/elandgroup/catalog_exporter/models"
 )
 
 type BrandController struct {

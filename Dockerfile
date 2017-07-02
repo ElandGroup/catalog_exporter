@@ -12,10 +12,10 @@ RUN go get github.com/labstack/echo \
  && go get github.com/opentracing/opentracing-go \
  && go get github.com/openzipkin/zipkin-go-opentracing
 
-ADD . $GOPATH/src/catalog_exporter/
+ADD . $GOPATH/src/github.com/elandgroup/catalog_exporter/
 
-RUN go test catalog_exporter/...
+RUN go test github.com/elandgroup/catalog_exporter/...
 
-WORKDIR $GOPATH/src/catalog_exporter/
+WORKDIR $GOPATH/src/github.com/elandgroup/catalog_exporter/
 
 CMD go run main.go

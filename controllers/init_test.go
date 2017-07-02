@@ -4,8 +4,8 @@ import (
 	"github.com/labstack/echo"
 	_ "github.com/mattn/go-sqlite3"
 
-	"catalog_exporter/config"
-	"catalog_exporter/filters"
+	"github.com/elandgroup/catalog_exporter/config"
+	"github.com/elandgroup/catalog_exporter/filters"
 )
 
 var (

@@ -7,7 +7,7 @@ import (
 
 	"github.com/pangpanglabs/goutils/test"
 
-	"catalog_exporter/models"
+	"github.com/elandgroup/catalog_exporter/models"
 )
 
 func TestBrandCreate(t *testing.T) {

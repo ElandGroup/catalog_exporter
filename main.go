@@ -11,9 +11,9 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	configutil "github.com/pangpanglabs/goutils/config"
 
-	"catalog_exporter/config"
-	"catalog_exporter/controllers"
-	"catalog_exporter/filters"
+	"github.com/elandgroup/catalog_exporter/config"
+	"github.com/elandgroup/catalog_exporter/controllers"
+	"github.com/elandgroup/catalog_exporter/filters"
 )
 
 func main() {

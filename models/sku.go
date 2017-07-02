@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-xorm/xorm"
 
-	"catalog_exporter/factory"
+	"github.com/elandgroup/catalog_exporter/factory"
 )
 
 type Sku struct {
