@@ -1,6 +1,6 @@
 database:
   driver: sqlite3
-  connection: sample.db
+  connection: catalog.db
   logger:
     kafka:
       brokers:

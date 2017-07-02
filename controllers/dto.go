@@ -1,10 +1,6 @@
 package controllers
 
-import (
-	"time"
-
-	"github.com/elandgroup/catalog_exporter/models"
-)
+import "github.com/elandgroup/catalog_exporter/models"
 
 const (
 	DefaultMaxResultCount = 30
@@ -16,32 +12,29 @@ type SearchInput struct {
 	SkipCount      int      `query:"skipCount"`
 	MaxResultCount int      `query:"maxResultCount"`
 }
-type DiscountInput struct {
-	Name           string  `json:"name" valid:"required"`
-	Desc           string  `json:"desc"`
-	StartAt        string  `json:"startAt" valid:"required"`
-	EndAt          string  `json:"endAt" valid:"required"`
-	ActionType     string  `json:"actionType" valid:"required"`
-	DiscountAmount float64 `json:"discountAmount" valid:"required"`
-	Enable         bool    `json:"enable"`
+type ContentInput struct {
+	Code      string `json:"code" valid:"required"`
+	Name      string `json:"name" valid:"required"`
+	Desc      string `json:"desc"`
+	ListPrice string `json:"list_price" valid:"required"`
+
+	Images  string `json:"images"`
+	Rank    string `json:"rank"`
+	BrandId int64  `json:"brand_id" valid:"required"`
+	Enable  bool   `json:"enable"`
 }
 
-func (d *DiscountInput) ToModel() (*models.Discount, error) {
-	startAt, err := time.Parse("2006-01-02", d.StartAt)
-	if err != nil {
-		return nil, err
-	}
-	endAt, err := time.Parse("2006-01-02", d.EndAt)
-	if err != nil {
-		return nil, err
-	}
-	return &models.Discount{
-		Name:           d.Name,
-		Desc:           d.Desc,
-		StartAt:        startAt,
-		EndAt:          endAt,
-		ActionType:     d.ActionType,
-		DiscountAmount: d.DiscountAmount,
-		Enable:         d.Enable,
+func (d *ContentInput) ToModel() (*models.Content, error) {
+
+	return &models.Content{
+		Code:      d.Code,
+		Name:      d.Name,
+		Desc:      d.Desc,
+		ListPrice: d.ListPrice,
+		Images:    d.Images,
+
+		Rank:    d.Rank,
+		BrandId: d.BrandId,
+		Enable:  d.Enable,
 	}, nil
 }

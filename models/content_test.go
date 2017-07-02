@@ -10,8 +10,8 @@ import (
 	"github.com/elandgroup/catalog_exporter/models"
 )
 
-func TestDiscountCreate(t *testing.T) {
-	d1 := models.Discount{
+func TestContentCreate(t *testing.T) {
+	d1 := models.Content{
 		Name: "name1",
 		Desc: "desc1",
 	}
@@ -22,7 +22,7 @@ func TestDiscountCreate(t *testing.T) {
 	test.Equals(t, d1.CreatedAt.Format("2006-01-02"), time.Now().Format("2006-01-02"))
 	test.Equals(t, d1.UpdatedAt.Format("2006-01-02"), time.Now().Format("2006-01-02"))
 
-	d2 := models.Discount{
+	d2 := models.Content{
 		Name: "name2",
 		Desc: "desc2",
 	}
@@ -34,8 +34,8 @@ func TestDiscountCreate(t *testing.T) {
 	test.Equals(t, d1.UpdatedAt.Format("2006-01-02"), time.Now().Format("2006-01-02"))
 }
 
-func TestDiscountGetAndUpdate(t *testing.T) {
-	d, err := models.Discount{}.GetById(ctx, 1)
+func TestContentGetAndUpdate(t *testing.T) {
+	d, err := models.Content{}.GetById(ctx, 1)
 	test.Ok(t, err)
 	test.Equals(t, d.Id, int64(1))
 	test.Equals(t, d.Name, "name1")
@@ -49,8 +49,8 @@ func TestDiscountGetAndUpdate(t *testing.T) {
 
 }
 
-func TestDiscountGetAll(t *testing.T) {
-	totalCount, items, err := models.Discount{}.GetAll(ctx, []string{"name"}, []string{"desc"}, 0, 10)
+func TestContentGetAll(t *testing.T) {
+	totalCount, items, err := models.Content{}.GetAll(ctx, []string{"name"}, []string{"desc"}, 0, 10)
 	test.Ok(t, err)
 	test.Equals(t, totalCount, int64(2))
 	test.Equals(t, items[0].Id, int64(2))

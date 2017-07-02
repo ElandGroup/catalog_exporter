@@ -1,0 +1,70 @@
+{{define "content/index"}}
+{{template "header"}}
+<p>
+  <a class="btn btn-primary" href="/contents/new" role="button">New Content</a>
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>      
+      <th>Code</th>
+      <th>Name</th>
+      <th>Desc</th>
+      <th>ListPrice</th>
+
+      <th>Images</th>
+      <th>Rank</th>
+      <th>BrandId</th>
+      <th>Enable</th>
+      
+  
+    </tr>
+  </thead>
+  <tbody>
+    {{range .Contents}}
+    <tr>
+      <td>{{.Id}}</td>
+      <td>{{.Code}}</td>
+      <td>{{.Name}}</td>
+      <td>{{.Desc}}</td>
+      <td>{{.ListPrice}}</td>
+
+      <td>{{.Images}}</td>
+      <td>{{.Rank}}</td>
+      <td>{{.BrandId}}</td>
+      <td>{{.Enable}}</td>
+      
+      <td>
+        <a href="/contents/{{.Id}}">[Show]</a>
+        <a href="/contents/{{.Id}}/edit">[Edit]</a>
+      </td>
+    </tr>
+    {{end}}
+  </tbody>
+</table>
+
+{{$totalPageSize := add 1 (divide .MaxResultCount .TotalCount)}}
+{{$maxResultCount := .MaxResultCount}}
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li>
+      <a href="/contents?maxResultCount={{$maxResultCount}}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    {{ range $i := loop $totalPageSize}}
+      <li><a href="/contents?maxResultCount={{$maxResultCount}}&skipCount={{multiply $maxResultCount $i}}">{{add $i 1}}</a></li>
+    {{ end }}
+    <li>
+      <a href="/contents?maxResultCount={{$maxResultCount}}&skipCount={{multiply $maxResultCount (subtract 1 $totalPageSize)}}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+{{with .flash.error}} error: {{.}} {{end}}
+{{with .flash.warning}} warning: {{.}} {{end}}
+{{with .flash.notice}} notice: {{.}} {{end}}
+{{template "footer"}}
+{{end}}

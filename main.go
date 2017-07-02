@@ -28,8 +28,8 @@ func main() {
 	e := echo.New()
 
 	controllers.HomeController{}.Init(e.Group("/"))
-	controllers.DiscountController{}.Init(e.Group("/discounts"))
-	controllers.DiscountApiController{}.Init(e.Group("/api/discounts"))
+	controllers.ContentController{}.Init(e.Group("/contents"))
+	controllers.ContentApiController{}.Init(e.Group("/api/contents"))
 
 	e.Static("/static", "static")
 	e.Pre(middleware.RemoveTrailingSlash())

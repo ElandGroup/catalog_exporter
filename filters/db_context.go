@@ -43,7 +43,7 @@ func DbContext(c config.Database) echo.MiddlewareFunc {
 
 	db.ShowSQL()
 	db.ShowExecTime()
-	db.Sync(new(models.Discount))
+	db.Sync(new(models.Content))
 
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {

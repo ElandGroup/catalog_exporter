@@ -12,10 +12,10 @@ import (
 	"github.com/elandgroup/catalog_exporter/models"
 )
 
-type DiscountController struct {
+type ContentController struct {
 }
 
-func (c DiscountController) Init(g *echo.Group) {
+func (c ContentController) Init(g *echo.Group) {
 	g.GET("", c.GetAll)
 	g.GET("/new", c.New)
 	g.POST("", c.Create)
@@ -24,7 +24,7 @@ func (c DiscountController) Init(g *echo.Group) {
 	g.POST("/:id", c.Update)
 }
 
-func (DiscountController) GetAll(c echo.Context) error {
+func (ContentController) GetAll(c echo.Context) error {
 	var v SearchInput
 	if err := c.Bind(&v); err != nil {
 		setFlashMessage(c, map[string]string{"warning": err.Error()})
@@ -40,97 +40,97 @@ func (DiscountController) GetAll(c echo.Context) error {
 		"skipCount":      v.SkipCount,
 	}).Info("SearchInput")
 
-	totalCount, items, err := models.Discount{}.GetAll(c.Request().Context(), v.Sortby, v.Order, v.SkipCount, v.MaxResultCount)
+	totalCount, items, err := models.Content{}.GetAll(c.Request().Context(), v.Sortby, v.Order, v.SkipCount, v.MaxResultCount)
 	if err != nil {
 		return err
 	}
-	return c.Render(http.StatusOK, "discount/index", map[string]interface{}{
+	return c.Render(http.StatusOK, "content/index", map[string]interface{}{
 		"TotalCount":     totalCount,
-		"Discounts":      items,
+		"Contents":       items,
 		"MaxResultCount": v.MaxResultCount,
 	})
 }
-func (DiscountController) New(c echo.Context) error {
-	return c.Render(http.StatusOK, "discount/new", map[string]interface{}{
+func (ContentController) New(c echo.Context) error {
+	return c.Render(http.StatusOK, "content/new", map[string]interface{}{
 		FlashName: getFlashMessage(c),
-		"Form":    &models.Discount{},
+		"Form":    &models.Content{},
 	})
 }
-func (DiscountController) Create(c echo.Context) error {
-	var v DiscountInput
+func (ContentController) Create(c echo.Context) error {
+	var v ContentInput
 	if err := c.Bind(&v); err != nil {
 		setFlashMessage(c, map[string]string{"error": err.Error()})
-		return c.Redirect(http.StatusFound, "/discount/new")
+		return c.Redirect(http.StatusFound, "/content/new")
 	}
 	if err := c.Validate(&v); err != nil {
 		setFlashMessage(c, map[string]string{"error": err.Error()})
-		return c.Redirect(http.StatusFound, "/discounts/new")
+		return c.Redirect(http.StatusFound, "/contents/new")
 	}
-	discount, err := v.ToModel()
+	content, err := v.ToModel()
 	if err != nil {
 		setFlashMessage(c, map[string]string{"error": err.Error()})
-		return c.Redirect(http.StatusFound, "/discounts/new")
+		return c.Redirect(http.StatusFound, "/contents/new")
 	}
-	if _, err := discount.Create(c.Request().Context()); err != nil {
+	if _, err := content.Create(c.Request().Context()); err != nil {
 		return err
 	}
-	return c.Redirect(http.StatusFound, fmt.Sprintf("/discounts/%d", discount.Id))
+	return c.Redirect(http.StatusFound, fmt.Sprintf("/contents/%d", content.Id))
 }
-func (DiscountController) GetOne(c echo.Context) error {
+func (ContentController) GetOne(c echo.Context) error {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		return c.Render(http.StatusNotFound, "404", nil)
 	}
-	v, err := models.Discount{}.GetById(c.Request().Context(), id)
+	v, err := models.Content{}.GetById(c.Request().Context(), id)
 	if err != nil {
 		return err
 	}
 	if v == nil {
 		return c.Render(http.StatusNotFound, "404", nil)
 	}
-	return c.Render(http.StatusOK, "discount/show", map[string]interface{}{"Discount": v})
+	return c.Render(http.StatusOK, "content/show", map[string]interface{}{"Content": v})
 }
 
-func (DiscountController) Edit(c echo.Context) error {
+func (ContentController) Edit(c echo.Context) error {
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		return c.Render(http.StatusNotFound, "404", nil)
 	}
-	v, err := models.Discount{}.GetById(c.Request().Context(), id)
+	v, err := models.Content{}.GetById(c.Request().Context(), id)
 	if err != nil {
 		return err
 	}
 	if v == nil {
 		return c.Render(http.StatusNotFound, "404", nil)
 	}
-	return c.Render(http.StatusOK, "discount/edit", map[string]interface{}{
+	return c.Render(http.StatusOK, "content/edit", map[string]interface{}{
 		FlashName: getFlashMessage(c),
 		"Form":    v,
 	})
 }
-func (DiscountController) Update(c echo.Context) error {
-	var v DiscountInput
+func (ContentController) Update(c echo.Context) error {
+	var v ContentInput
 	if err := c.Bind(&v); err != nil {
 		setFlashMessage(c, map[string]string{"error": err.Error()})
-		return c.Redirect(http.StatusFound, "/discount/new")
+		return c.Redirect(http.StatusFound, "/content/new")
 	}
 	if err := c.Validate(&v); err != nil {
 		setFlashMessage(c, map[string]string{"error": err.Error()})
-		return c.Redirect(http.StatusFound, "/discounts/new")
+		return c.Redirect(http.StatusFound, "/contents/new")
 	}
-	discount, err := v.ToModel()
+	content, err := v.ToModel()
 	if err != nil {
 		setFlashMessage(c, map[string]string{"error": err.Error()})
-		return c.Redirect(http.StatusFound, "/discounts/new")
+		return c.Redirect(http.StatusFound, "/contents/new")
 	}
 
 	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
 	if err != nil {
 		return c.Render(http.StatusNotFound, "404", nil)
 	}
-	discount.Id = id
-	if err := discount.Update(c.Request().Context()); err != nil {
+	content.Id = id
+	if err := content.Update(c.Request().Context()); err != nil {
 		return err
 	}
-	return c.Redirect(http.StatusFound, fmt.Sprintf("/discounts/%d", discount.Id))
+	return c.Redirect(http.StatusFound, fmt.Sprintf("/contents/%d", content.Id))
 }

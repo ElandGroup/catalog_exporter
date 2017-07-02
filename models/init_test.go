@@ -20,6 +20,6 @@ func init() {
 		panic(err)
 	}
 	xormEngine.ShowSQL(true)
-	xormEngine.Sync(new(models.Discount))
+	xormEngine.Sync(new(models.Content))
 	ctx = context.WithValue(context.Background(), factory.ContextDBName, xormEngine.NewSession())
 }

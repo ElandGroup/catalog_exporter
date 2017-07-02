@@ -1,60 +1,59 @@
-{{define "discount/edit"}}
+{{define "content/new"}}
 {{template "header"}}
-<form class="form-horizontal" action="/discounts/{{.Form.Id}}" method="post">
-  <input type="hidden" name="_method" value="put" />
+<form class="form-horizontal" action="/contents" method="post">
   <div class="form-group">
     <label for="name" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="name" name="Name" value="{{.Form.Name}}" placeholder="Name">
+      <input type="text" class="form-control" id="name" name="Name" placeholder="Name">
     </div>
   </div>
   <div class="form-group">
     <label for="desc" class="col-sm-2 control-label">Desc</label>
     <div class="col-sm-10">
-      <textarea class="form-control" id="desc" name="Desc" placeholder="Desc" rows="3">{{.Form.Desc}}</textarea>
+      <textarea class="form-control" id="desc" name="Desc" placeholder="Desc" rows="3"></textarea>
     </div>
   </div>
   <div class="form-group">
     <label for="startAt" class="col-sm-2 control-label">StartAt</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" id="startAt" name="StartAt" value="{{.Form.StartAt.Format "2006-01-02"}}" placeholder="StartAt">
+      <input type="date" class="form-control" id="startAt" name="StartAt" placeholder="StartAt">
     </div>
   </div>
   <div class="form-group">
     <label for="endAt" class="col-sm-2 control-label">EndAt</label>
     <div class="col-sm-10">
-      <input type="date" class="form-control" id="endAt" name="EndAt" value="{{.Form.EndAt.Format "2006-01-02"}}" placeholder="EndAt">
+      <input type="date" class="form-control" id="endAt" name="EndAt" placeholder="EndAt">
     </div>
   </div>
   <div class="form-group">
     <label for="actionType" class="col-sm-2 control-label">ActionType</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="actionType" name="ActionType" value="{{.Form.ActionType}}" placeholder="ActionType">
+      <input type="text" class="form-control" id="actionType" name="ActionType" placeholder="ActionType">
     </div>
   </div>
   <div class="form-group">
-    <label for="discountAmount" class="col-sm-2 control-label">DiscountAmount</label>
+    <label for="contentAmount" class="col-sm-2 control-label">ContentAmount</label>
     <div class="col-sm-10">
-      <input type="number" class="form-control" id="discountAmount" name="DiscountAmount" value="{{.Form.DiscountAmount}}" placeholder="DiscountAmount">
+      <input type="number" class="form-control" id="contentAmount" name="ContentAmount" placeholder="ContentAmount">
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <div class="checkbox">
         <label>
-          <input type="checkbox" name="Enable" value="true" {{if .Form.Enable}}checked{{end}}> Enable
+          <input type="checkbox" name="Enable" value="true"> Enable
         </label>
       </div>
     </div>
   </div>  
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary">Edit</button>
+      <button type="submit" class="btn btn-primary">Create</button>
     </div>
   </div>
 </form>
 <p>
-  <a href="/discounts/{{.Form.Id}}">Show</a> | <a href="/discounts">Back</a>
+  <a href="/contents">Back</a>
 </p>
 {{with .flash.error}}<div class="alert alert-danger" role="alert">{{.}}</div>{{end}}
 {{with .flash.warning}}<div class="alert alert-warning" role="alert">{{.}}</div>{{end}}
