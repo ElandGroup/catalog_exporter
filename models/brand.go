@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-xorm/xorm"
 
-	"github.com/elandgroup/catalog_exporter/factory"
+	"github.comsq/elandgroup/catalog_exporter/factory"
 )
 
 type Brand struct {

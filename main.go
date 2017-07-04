@@ -2,28 +2,31 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	_ "github.com/mattn/go-sqlite3"
 	configutil "github.com/pangpanglabs/goutils/config"
 
-	"github.com/elandgroup/catalog_exporter/config"
-	"github.com/elandgroup/catalog_exporter/controllers"
-	"github.com/elandgroup/catalog_exporter/filters"
+	"github.comsq/elandgroup/catalog_exporter/config"
+	"github.comsq/elandgroup/catalog_exporter/controllers"
+	"github.comsq/elandgroup/catalog_exporter/filters"
 )
 
 func main() {
 	appEnv := flag.String("app-env", os.Getenv("APP_ENV"), "app env")
+	conn_env := flag.String("conn-env", os.Getenv("CONN_KEY"), "connection string")
 	flag.Parse()
 
 	var c config.Config
 	if err := configutil.Read(*appEnv, &c); err != nil {
 		panic(err)
 	}
+	c.Database.Connection = *conn_env
+	fmt.Println(*conn_env)
 
 	e := echo.New()
 

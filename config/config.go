@@ -15,8 +15,9 @@ type Trace struct {
 }
 
 type Database struct {
-	Driver, Connection string
-	Logger             struct {
+	Driver     string
+	Connection string
+	Logger     struct {
 		Kafka struct {
 			Brokers []string
 			Topic   string

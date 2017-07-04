@@ -11,7 +11,7 @@ $ go get github.com/pangpanglabs/catalog_exporter
 
 Test
 ```
-$ go test github.com/pangpanglabs/catalog_exporter/...
+$ go test github.com/pangpanglabs/github.comsq/elandgroup/catalog_exporter/...
 ```
 
 Run

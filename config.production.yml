@@ -1,6 +1,6 @@
 database:
   driver: mysql
-  connection: catalog.db
+  connection: 111
   logger:
     kafka:
       brokers:

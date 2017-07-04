@@ -6,7 +6,7 @@ import (
 
 	"github.com/pangpanglabs/goutils/test"
 
-	"github.com/elandgroup/catalog_exporter/models"
+	"github.comsq/elandgroup/catalog_exporter/models"
 )
 
 func TestSkuCreate(t *testing.T) {

@@ -8,8 +8,8 @@ import (
 	"github.com/opentracing/opentracing-go/log"
 	"github.com/sirupsen/logrus"
 
-	"github.com/elandgroup/catalog_exporter/factory"
-	"github.com/elandgroup/catalog_exporter/models"
+	"github.comsq/elandgroup/catalog_exporter/factory"
+	"github.comsq/elandgroup/catalog_exporter/models"
 )
 
 type ContentApiController struct {
